@@ -1,0 +1,19 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+header {
+    display: flex;
+    background-color: #c4b4ef;
+    padding: 2em;
+}
+.fa-piggy-bank {
+    font-size: 2em;
+}
+#headerText {
+    padding-left: 0.7em;
+    font-family: "Merriweather", serif;
+    font-weight: 600;
+    font-style: italic
+}
