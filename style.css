@@ -1,33 +1,67 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
+.hide {
+    display: none;
+}
+
 header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #c4b4ef;
     padding: 2em;
 }
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
 .fa-piggy-bank {
     font-size: 2em;
-    margin-top: 0.2em;
+    margin-top: -0.2em;
 }
+
 #headerText {
-    padding-left: 0.7em;
-    margin-top: 0.2em;
     font-family: "Merriweather", serif;
     font-weight: 600;
-    font-style: italic
+    font-style: italic;
+    padding-left: 0.3em;
 }
 
 #Btn {
-    padding-left: 68em;
+    display: flex;
+    gap: 10px;
 }
-#LogginBtn {
-    width: 100px;
-    height: 50px;    
-}
-#createAccountBtn {
+
+#loginBtn, #createAccountBtn {
     width: 100px;
     height: 50px;
+}
+
+#loginPage {
+    text-align: center;
+    align-items: center;
+    margin-top: 2em;
+    font-family: "Merriweather", serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+#userName, #userPassword {
+    margin-top: 1em;
+}
+
+#userNameText, #PasswordText {
+    margin-top: 1em;
+}
+
+#BtnLoggaIn {
+    margin-top: 1em;
+    width: 70px;
+    height: 40px;
 }
