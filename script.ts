@@ -23,6 +23,11 @@ const depositMoneyForm = document.getElementById("depositMoneyForm") as HTMLDivE
 const depositMoneyInput = document.getElementById("depositMoneyInput") as HTMLInputElement;
 const saveDepositBtn = document.getElementById("saveDepositBtn") as HTMLButtonElement;
 
+//element från HTML till withdraw
+const withdrawMoneyForm = document.getElementById("withdrawMoneyForm") as HTMLDivElement;
+const withdrawMoneyInput = document.getElementById("withdrawMoneyInput") as HTMLInputElement;
+const saveWithdrawBtn = document.getElementById("saveWithDrawBtn") as HTMLButtonElement;
+
 // Lägger till klick-händelse för att visa login-formuläret.
 loginBtn.addEventListener("click", () => {
     loginPage.classList.remove("hide");
