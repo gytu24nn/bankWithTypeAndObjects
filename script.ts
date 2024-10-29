@@ -70,9 +70,47 @@ class User {
 
 }
 
-// public loggin() {
-//     BtnLoggaIn.addEventListener("click", () => {
-//         console.log("klick");
-        
-//     })
-// }
+class Bank {
+    userName: string
+    userPassword: string
+
+    constructor(userName: string, userPassword: string) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
+
+    public loggin() {
+        BtnLoggaIn.addEventListener("click", () => {
+        const inputUserName = userNameInput.value;
+        const inputUserPassword = userPasswordInput.value;
+
+        if (this.userName == inputUserName && this.userPassword == inputUserPassword) {
+            console.log("klick");
+            loginPage.classList.add("hide"); 
+            menyPage.classList.remove("hide");
+            loginBtn.classList.add("hide");
+            createAccountBtn.classList.add("hide");
+            
+
+        } else {
+            alert("Du skrev in fel användarnamn eller lösenord! Försök igen!")
+        }
+    });
+    }
+
+    public loggout() {
+        logOutBtn.addEventListener("click", () => {
+            loginPage.classList.remove("hide");
+            menyPage.classList.add("hide");
+            loginBtn.classList.remove("hide");
+            createAccountBtn.classList.remove("hide");
+            userNameInput.value = "";
+            userPasswordInput.value = "";
+        })
+    }
+}
+
+const bankUser = new Bank("test", "1234")
+bankUser.loggin();
+bankUser.loggout();
+
