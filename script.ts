@@ -32,3 +32,47 @@ const saveWithdrawBtn = document.getElementById("saveWithDrawBtn") as HTMLButton
 loginBtn.addEventListener("click", () => {
     loginPage.classList.remove("hide");
 });
+
+class User {
+     private balance: number
+
+    public constructor(initicalBalnce: number = 0) {
+        this.balance = initicalBalnce;
+    }
+
+    public getBalance(): number {
+        return this.balance;
+    }
+
+    public deposit(amount: number): void {
+        if (amount > 0 ) {
+            this.balance += amount;
+            let paragraftDepositText = document.createElement("p");
+            paragraftDepositText.innerHTML = "Du satte in ${amount} kr";
+        } else {
+            alert("beloopet måste vara större än 0");
+        }
+    }
+
+    public withdraw(amount: number): void {
+        if(amount > 0 && amount <= this.balance ) {
+            this.balance -= amount;
+            let paragrafWithdrawText = document.createElement("p");
+            paragrafWithdrawText.innerHTML = "du tog ut ${amount} kr";
+
+        } else if(amount > this.balance) {
+            alert("Det belopp du försökte ta ut är förstort. Testa att sätt in pengar först");
+        } else {
+            alert("Ditt belopp måste vara sötrre än 0.");
+        }
+    }
+
+
+}
+
+// public loggin() {
+//     BtnLoggaIn.addEventListener("click", () => {
+//         console.log("klick");
+        
+//     })
+// }
