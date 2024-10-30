@@ -65,3 +65,15 @@ header {
     width: 70px;
     height: 40px;
 }
+
+#balanceDisplay {
+    text-align: center;
+}
+
+#depositMoneyForm {
+    text-align: center;
+}
+#withdrawMoneyForm {
+    text-align: center;
+}
+
