@@ -40,10 +40,24 @@
     <!-- Create Account Page -->
     <div id="createAccountPage" class="hide">
         <!-- Lägg till skapa konto-formulär här -->
+        <h1>Skapa ditt konto:</h1>
+
+        <p>Username:</p>
+        <input type="text" id="newUserName" placeholder="choose your Username">
+
+        <p>Password</p>
+        <input type="text" id="newPassword" placeholder="choose your password">
+
+        <button id="BtnCreateAccount">Create Account</button>
+
+
     </div>
 
     <div id="menyPage" class="hide">
 
+        <div id="MenyOptions">
+
+        </div>
         <!--I onclick ska jag kalla på mina metoder från mina två klasser banker och user som jag kommer skapa i typescript
         kanske använda eventlistner istället inte besämmt mig än-->
         <h3 id="balance">Balance</h3>
@@ -51,6 +65,9 @@
         <h3 id="withdraw">Withdraw</h3>
         <h3 id="logOut">Log out</h3>
 
+
+    <div>
+        <p id="balanceDisplay"></p>
     </div>
 
     <!--HTML kod för att sätta in pengar-->
@@ -64,6 +81,9 @@
         <p id="withdrawText">Withdraw:</p>
         <input type="text" id="withdrawMoneyInput" placeholder="amount to withdraw">
         <button id="saveWithdrawBtn">Save</button>
+    </div>    
+    
     </div>
+
 </body>
 </html>

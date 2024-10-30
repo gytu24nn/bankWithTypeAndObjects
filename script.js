@@ -8,12 +8,17 @@ var createAccountPage = document.getElementById("createAccountPage");
 var userNameInput = document.getElementById("userName");
 var userPasswordInput = document.getElementById("userPassword");
 var BtnLoggaIn = document.getElementById("BtnLoggaIn");
+//element för att skapa ett konto
+var newUserNameInput = document.getElementById("newUserName");
+var newUserPassword = document.getElementById("newPassword");
+var BtncreateAccount = document.getElementById("BtnCreateAccount");
 //Element till meny page där det olika alternativen som användaren kan välja mellan finns
 var menyPage = document.getElementById("menyPage");
 var balanceBtn = document.getElementById("balance");
 var depositBtn = document.getElementById("deposit");
 var withdrawBtn = document.getElementById("withdraw");
 var logOutBtn = document.getElementById("logOut");
+var balanceDisplay = document.getElementById("balanceDisplay");
 //Element från HTML till despoitpage
 var depositMoneyForm = document.getElementById("depositMoneyForm");
 var depositMoneyInput = document.getElementById("depositMoneyInput");
@@ -21,10 +26,13 @@ var saveDepositBtn = document.getElementById("saveDepositBtn");
 //element från HTML till withdraw
 var withdrawMoneyForm = document.getElementById("withdrawMoneyForm");
 var withdrawMoneyInput = document.getElementById("withdrawMoneyInput");
-var saveWithdrawBtn = document.getElementById("saveWithDrawBtn");
+var saveWithdrawBtn = document.getElementById("saveWithdrawBtn");
 // Lägger till klick-händelse för att visa login-formuläret.
 loginBtn.addEventListener("click", function () {
     loginPage.classList.remove("hide");
+});
+BtncreateAccount.addEventListener("click", function () {
+    createAccountPage.classList.remove("hide");
 });
 var User = /** @class */ (function () {
     function User(initicalBalnce) {
@@ -38,7 +46,8 @@ var User = /** @class */ (function () {
         if (amount > 0) {
             this.balance += amount;
             var paragraftDepositText = document.createElement("p");
-            paragraftDepositText.innerHTML = "Du satte in ${amount} kr";
+            paragraftDepositText.innerHTML = "Du satte in ".concat(amount, " kr");
+            depositMoneyForm.appendChild(paragraftDepositText);
         }
         else {
             alert("beloopet måste vara större än 0");
@@ -48,7 +57,8 @@ var User = /** @class */ (function () {
         if (amount > 0 && amount <= this.balance) {
             this.balance -= amount;
             var paragrafWithdrawText = document.createElement("p");
-            paragrafWithdrawText.innerHTML = "du tog ut ${amount} kr";
+            paragrafWithdrawText.innerHTML = "du tog ut ".concat(amount, " kr");
+            withdrawMoneyForm.appendChild(paragrafWithdrawText);
         }
         else if (amount > this.balance) {
             alert("Det belopp du försökte ta ut är förstort. Testa att sätt in pengar först");
@@ -82,17 +92,52 @@ var Bank = /** @class */ (function () {
         });
     };
     Bank.prototype.loggout = function () {
-        logOutBtn.addEventListener("click", function () {
-            loginPage.classList.remove("hide");
-            menyPage.classList.add("hide");
-            loginBtn.classList.remove("hide");
-            createAccountBtn.classList.remove("hide");
-            userNameInput.value = "";
-            userPasswordInput.value = "";
-        });
+        userNameInput.value = "";
+        userPasswordInput.value = "";
     };
     return Bank;
 }());
 var bankUser = new Bank("test", "1234");
-bankUser.loggin();
-bankUser.loggout();
+var user = new User(0);
+balanceBtn.addEventListener("click", function () {
+    depositMoneyForm.classList.add("hide");
+    withdrawMoneyForm.classList.add("hide");
+    balanceDisplay.classList.remove("hide");
+    var balance = user.getBalance();
+    var balanceMessage = "Ditt saldo \u00E4r: ".concat(balance, " kr");
+    balanceDisplay.textContent = balanceMessage;
+});
+depositBtn.addEventListener("click", function () {
+    depositMoneyForm.classList.remove("hide");
+    withdrawMoneyForm.classList.add("hide");
+    balanceDisplay.classList.add("hide");
+});
+saveDepositBtn.addEventListener("click", function () {
+    var addBalance = Number(depositMoneyInput.value);
+    user.deposit(addBalance);
+    depositMoneyInput.value = "";
+});
+withdrawBtn.addEventListener("click", function () {
+    withdrawMoneyForm.classList.remove("hide");
+    depositMoneyForm.classList.add("hide");
+    balanceDisplay.classList.add("hide");
+});
+saveWithdrawBtn.addEventListener("click", function () {
+    var subtractBalance = Number(withdrawMoneyInput.value);
+    user.withdraw(subtractBalance);
+    withdrawMoneyInput.value = "";
+});
+logOutBtn.addEventListener("click", function () {
+    bankUser.loggout();
+    loginPage.classList.remove("hide");
+    menyPage.classList.add("hide");
+    loginBtn.classList.remove("hide");
+    createAccountBtn.classList.remove("hide");
+});
+BtnLoggaIn.addEventListener("click", function () {
+    bankUser.loggin();
+    loginPage.classList.add("hide");
+    menyPage.classList.remove("hide");
+    loginBtn.classList.add("hide");
+    createAccountBtn.classList.add("hide");
+});
