@@ -1,6 +1,5 @@
 // Hämtar knappar från HTML för att komma till logga in eller skapa konto formulären.
 var loginBtn = document.getElementById("loginBtn");
-var createAccountBtn = document.getElementById("createAccountBtn");
 // Hämtar de olika elementen till formulären.
 var loginPage = document.getElementById("loginPage");
 var createAccountPage = document.getElementById("createAccountPage");
@@ -31,9 +30,16 @@ var saveWithdrawBtn = document.getElementById("saveWithdrawBtn");
 loginBtn.addEventListener("click", function () {
     loginPage.classList.remove("hide");
 });
-BtncreateAccount.addEventListener("click", function () {
-    createAccountPage.classList.remove("hide");
-});
+function showPage(elements) {
+    elements.forEach(function (element) {
+        element.classList.remove("hide");
+    });
+}
+function hidePage(elements) {
+    elements.forEach(function (element) {
+        element.classList.add("hide");
+    });
+}
 var User = /** @class */ (function () {
     function User(initicalBalnce) {
         if (initicalBalnce === void 0) { initicalBalnce = 0; }
@@ -81,10 +87,8 @@ var Bank = /** @class */ (function () {
             var inputUserPassword = userPasswordInput.value;
             if (_this.userName == inputUserName && _this.userPassword == inputUserPassword) {
                 console.log("klick");
-                loginPage.classList.add("hide");
-                menyPage.classList.remove("hide");
-                loginBtn.classList.add("hide");
-                createAccountBtn.classList.add("hide");
+                hidePage([loginPage, loginBtn]);
+                showPage([menyPage]);
             }
             else {
                 alert("Du skrev in fel användarnamn eller lösenord! Försök igen!");
@@ -97,20 +101,18 @@ var Bank = /** @class */ (function () {
     };
     return Bank;
 }());
-var bankUser = new Bank("test", "1234");
+var bankUser = new Bank("test", "test");
 var user = new User(0);
 balanceBtn.addEventListener("click", function () {
-    depositMoneyForm.classList.add("hide");
-    withdrawMoneyForm.classList.add("hide");
-    balanceDisplay.classList.remove("hide");
+    hidePage([depositMoneyForm, withdrawMoneyForm]);
+    showPage([balanceDisplay]);
     var balance = user.getBalance();
     var balanceMessage = "Ditt saldo \u00E4r: ".concat(balance, " kr");
     balanceDisplay.textContent = balanceMessage;
 });
 depositBtn.addEventListener("click", function () {
-    depositMoneyForm.classList.remove("hide");
-    withdrawMoneyForm.classList.add("hide");
-    balanceDisplay.classList.add("hide");
+    hidePage([withdrawMoneyForm, balanceDisplay]);
+    showPage([depositMoneyForm]);
 });
 saveDepositBtn.addEventListener("click", function () {
     var addBalance = Number(depositMoneyInput.value);
@@ -118,9 +120,8 @@ saveDepositBtn.addEventListener("click", function () {
     depositMoneyInput.value = "";
 });
 withdrawBtn.addEventListener("click", function () {
-    withdrawMoneyForm.classList.remove("hide");
-    depositMoneyForm.classList.add("hide");
-    balanceDisplay.classList.add("hide");
+    hidePage([depositMoneyForm, balanceDisplay]);
+    showPage([withdrawMoneyForm]);
 });
 saveWithdrawBtn.addEventListener("click", function () {
     var subtractBalance = Number(withdrawMoneyInput.value);
@@ -129,15 +130,11 @@ saveWithdrawBtn.addEventListener("click", function () {
 });
 logOutBtn.addEventListener("click", function () {
     bankUser.loggout();
-    loginPage.classList.remove("hide");
-    menyPage.classList.add("hide");
-    loginBtn.classList.remove("hide");
-    createAccountBtn.classList.remove("hide");
+    hidePage([menyPage]);
+    showPage([loginPage, loginBtn]);
 });
 BtnLoggaIn.addEventListener("click", function () {
     bankUser.loggin();
-    loginPage.classList.add("hide");
-    menyPage.classList.remove("hide");
-    loginBtn.classList.add("hide");
-    createAccountBtn.classList.add("hide");
+    hidePage([loginPage, loginBtn]);
+    showPage([menyPage]);
 });

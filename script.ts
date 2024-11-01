@@ -1,6 +1,5 @@
 // Hämtar knappar från HTML för att komma till logga in eller skapa konto formulären.
 const loginBtn = document.getElementById("loginBtn") as HTMLButtonElement;
-const createAccountBtn = document.getElementById("createAccountBtn") as HTMLButtonElement;
 
 // Hämtar de olika elementen till formulären.
 const loginPage = document.getElementById("loginPage") as HTMLDivElement;
@@ -39,9 +38,20 @@ loginBtn.addEventListener("click", () => {
     loginPage.classList.remove("hide");
 });
 
-BtncreateAccount.addEventListener("click", () => {
-    createAccountPage.classList.remove("hide");
-})
+
+
+function showPage(elements: HTMLElement[]) {
+    elements.forEach(element => {
+        element.classList.remove("hide");
+    });
+}
+
+function hidePage(elements: HTMLElement[]) {
+    elements.forEach(element => {
+        element.classList.add("hide");
+    });
+}
+
 
 class User {
      private balance: number
@@ -98,12 +108,9 @@ class Bank {
 
         if (this.userName == inputUserName && this.userPassword == inputUserPassword) {
             console.log("klick");
-            loginPage.classList.add("hide"); 
-            menyPage.classList.remove("hide");
-            loginBtn.classList.add("hide");
-            createAccountBtn.classList.add("hide");
+            hidePage([loginPage, loginBtn])
+            showPage([menyPage])
             
-
         } else {
             alert("Du skrev in fel användarnamn eller lösenord! Försök igen!")
         }
@@ -117,23 +124,20 @@ class Bank {
     }
 }
 
-const bankUser = new Bank("test", "1234")
+const bankUser = new Bank("test", "test")
 const user = new User(0);
 
 balanceBtn.addEventListener("click", () => {
-    depositMoneyForm.classList.add("hide");
-    withdrawMoneyForm.classList.add("hide");
-    balanceDisplay.classList.remove("hide");
+    hidePage([depositMoneyForm, withdrawMoneyForm])
+    showPage([balanceDisplay])
     const balance = user.getBalance();
     const balanceMessage = `Ditt saldo är: ${balance} kr`;
     balanceDisplay.textContent = balanceMessage;
 })
 
 depositBtn.addEventListener("click", () => {
-    depositMoneyForm.classList.remove("hide");
-    withdrawMoneyForm.classList.add("hide")
-    balanceDisplay.classList.add("hide");
-    
+    hidePage([withdrawMoneyForm, balanceDisplay])
+    showPage([depositMoneyForm])
 })
 
 saveDepositBtn.addEventListener("click", () => {
@@ -143,9 +147,8 @@ saveDepositBtn.addEventListener("click", () => {
 })
 
 withdrawBtn.addEventListener("click", () => {
-    withdrawMoneyForm.classList.remove("hide");
-    depositMoneyForm.classList.add("hide");
-    balanceDisplay.classList.add("hide"); 
+    hidePage([depositMoneyForm, balanceDisplay])
+    showPage([withdrawMoneyForm])
 })
 
 saveWithdrawBtn.addEventListener("click", () => {
@@ -156,18 +159,13 @@ saveWithdrawBtn.addEventListener("click", () => {
 
 logOutBtn.addEventListener("click", () => {
     bankUser.loggout();
-    loginPage.classList.remove("hide");
-    menyPage.classList.add("hide");
-    loginBtn.classList.remove("hide");
-    createAccountBtn.classList.remove("hide");
-
+    hidePage([menyPage])
+    showPage([loginPage, loginBtn])
 })
 
 
 BtnLoggaIn.addEventListener("click", () => {
     bankUser.loggin();
-    loginPage.classList.add("hide"); 
-    menyPage.classList.remove("hide");
-    loginBtn.classList.add("hide");
-    createAccountBtn.classList.add("hide");
-});
+    hidePage([loginPage, loginBtn])
+    showPage([menyPage])
+})
